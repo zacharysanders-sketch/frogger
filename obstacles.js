@@ -37,13 +37,19 @@ let obstacles = [];
 
 // Image variables
 const carsImage = new Image();
-carsImage.src = 'cars.png';
+carsImage.src = 'assets/cars.png';
+carsImage.onload = () => { console.log('Cars image loaded'); checkImagesLoaded(); };
+carsImage.onerror = () => console.error('Failed to load cars image');
 
 const logImage = new Image();
-logImage.src = 'log.png';
+logImage.src = 'assets/log.png';
+logImage.onload = () => { console.log('Log image loaded'); checkImagesLoaded(); };
+logImage.onerror = () => console.error('Failed to load log image');
 
 const turtlesImage = new Image();
-turtlesImage.src = 'turtles.png';
+turtlesImage.src = 'assets/turtles.png';
+turtlesImage.onload = () => { console.log('Turtles image loaded'); checkImagesLoaded(); };
+turtlesImage.onerror = () => console.error('Failed to load turtles image');
 
 // Create initial obstacles 
 function createObstacles() {
