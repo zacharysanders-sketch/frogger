@@ -39,11 +39,23 @@ collisions.onerror = () => console.error('Failed to load collisions');
 
 function checkImagesLoaded() {
     imagesLoaded++;
+    console.log(`Images loaded: ${imagesLoaded}/${totalImages}`);
     if (imagesLoaded >= totalImages) {
         console.log('All images loaded, starting game');
         animate();
+    } else if (imagesLoaded >= 5) { // Start with basic images loaded
+        console.log('Starting game with available images');
+        animate();
     }
 }
+
+// Fallback: start game after 3 seconds even if images haven't loaded
+setTimeout(() => {
+    if (imagesLoaded < totalImages) {
+        console.log('Timeout reached, starting game with loaded images');
+        animate();
+    }
+}, 3000);
 
 
 
@@ -57,8 +69,18 @@ function handleScore() {
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Background layers
-    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+    // Test drawing - draw a colored background if image fails
+    if (background.complete && background.naturalHeight !== 0) {
+        ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+    } else {
+        // Fallback: draw a green background
+        ctx.fillStyle = '#0f0';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#000';
+        ctx.font = '24px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('Loading...', canvas.width / 2, canvas.height / 2);
+    }
     
     if (!gameOver) {
         frame++;
