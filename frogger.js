@@ -57,13 +57,22 @@ class Frogger {
     }
 
     draw() {
-        ctx.drawImage(
-            this.frogSpriteSheet,
-            this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,
-            this.spriteWidth, this.spriteHeight,
-            this.x, this.y,
-            this.width, this.height
-        );
+        if (this.frogSpriteSheet.complete && this.frogSpriteSheet.naturalHeight !== 0) {
+            ctx.drawImage(
+                this.frogSpriteSheet,
+                this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,
+                this.spriteWidth, this.spriteHeight,
+                this.x, this.y,
+                this.width, this.height
+            );
+        } else {
+            // Fallback: draw a simple colored rectangle for the frog
+            ctx.fillStyle = '#00ff00';
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(this.x, this.y, this.width, this.height);
+        }
     }
 
     reset() {
