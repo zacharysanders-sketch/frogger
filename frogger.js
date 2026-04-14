@@ -12,7 +12,9 @@ class Frogger {
         this.frameCount = 0;
         this.maxFrame = 3;
         this.frogSpriteSheet = new Image();
-        this.frogSpriteSheet.src = 'frog_spritesheet.png';
+        this.frogSpriteSheet.src = 'assets/frog_spritesheet.png';
+        this.frogSpriteSheet.onload = () => { console.log('Frog spritesheet loaded'); checkImagesLoaded(); };
+        this.frogSpriteSheet.onerror = () => console.error('Failed to load frog spritesheet');
     }
 
     update() {
